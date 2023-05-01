@@ -1,0 +1,47 @@
+{
+    "name": "RAAC #1",
+    "description": "this is house #1",
+    "image": "ipfs://QmP3W7NXYqucwHxP4iwwwg9UirG1wquSEyDUubDnPB94GK/1.png",
+    "attributes": [
+        {
+            "trait_type": "country",
+            "value": "Canada"
+        },
+        {
+            "trait_type": "address",
+            "value": "54321 Strathcona Ave."
+        },
+        {
+            "trait_type": "size",
+            "value": "3000"
+        },
+        {
+            "trait_type": "lot size",
+            "value": "3975"
+        },
+        {
+            "trait_type": "bathrooms",
+            "value": "4"
+        },
+        {
+            "trait_type": "bedrooms",
+            "value": "6"
+        },
+        {
+            "trait_type": "year built",
+            "value": "2019"
+        },
+        {
+            "trait_type": "property tax",
+            "value": "2300"
+        },
+        {
+            "trait_type": "owners",
+            "value": ["person1", "person2", "person3", "person4"]
+        },
+        {
+            "trait_type": "lease",
+            "value": "10 years"
+        }
+    ]
+}

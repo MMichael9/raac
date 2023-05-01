@@ -1,0 +1,47 @@
+{
+    "name": "RAAC #0",
+    "description": "this is house #0",
+    "image": "ipfs://QmP3W7NXYqucwHxP4iwwwg9UirG1wquSEyDUubDnPB94GK/0.png",
+    "attributes": [
+        {
+            "trait_type": "country",
+            "value": "Canada"
+        },
+        {
+            "trait_type": "address",
+            "value": "12345 Hamilton Dr."
+        },
+        {
+            "trait_type": "size",
+            "value": "5000"
+        },
+        {
+            "trait_type": "lot size",
+            "value": "6240"
+        },
+        {
+            "trait_type": "bathrooms",
+            "value": "1"
+        },
+        {
+            "trait_type": "bedrooms",
+            "value": "3"
+        },
+        {
+            "trait_type": "year built",
+            "value": "2002"
+        },
+        {
+            "trait_type": "property tax",
+            "value": "5500"
+        },
+        {
+            "trait_type": "owners",
+            "value": ["person1", "person2", "person3"]
+        },
+        {
+            "trait_type": "lease",
+            "value": "5 years"
+        }
+    ]
+}

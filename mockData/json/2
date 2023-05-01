@@ -1,0 +1,47 @@
+{
+    "name": "RAAC #2",
+    "description": "this is house #2",
+    "image": "ipfs://QmP3W7NXYqucwHxP4iwwwg9UirG1wquSEyDUubDnPB94GK/2.png",
+    "attributes": [
+        {
+            "trait_type": "country",
+            "value": "United States of America"
+        },
+        {
+            "trait_type": "address",
+            "value": "6754 Bellingham St."
+        },
+        {
+            "trait_type": "size",
+            "value": "10000"
+        },
+        {
+            "trait_type": "lot size",
+            "value": "12000"
+        },
+        {
+            "trait_type": "bathrooms",
+            "value": "7"
+        },
+        {
+            "trait_type": "bedrooms",
+            "value": "12"
+        },
+        {
+            "trait_type": "year built",
+            "value": "2024"
+        },
+        {
+            "trait_type": "property tax",
+            "value": "10000"
+        },
+        {
+            "trait_type": "owners",
+            "value": ["person1", "person2", "person3", "person4", "person5"]
+        },
+        {
+            "trait_type": "lease",
+            "value": "20 years"
+        }
+    ]
+}
