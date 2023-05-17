@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const { loadFixture, time } = require("@nomicfoundation/hardhat-network-helpers");
 
-describe('NFT Contract', function() {
+describe('RAAC NFT Contract', function() {
 
     // Can use beforeEach instead
     async function deployTokenFixture() {
@@ -70,8 +70,8 @@ describe('NFT Contract', function() {
 
             it('mints multiple nfts and confirms balanceOf', async function() {
                 const{ hardhatNFT, owner, addr1, addr2 } = await loadFixture(deployTokenFixture);
-                const tokenUri1 = "ipfs/1"
-                const tokenUri2 = "ipfs/2"
+                const tokenUri1 = "1"
+                const tokenUri2 = "2"
 
                 await hardhatNFT.connect(owner).safeMint(addr1.address, tokenUri1);
                 expect(await hardhatNFT.balanceOf(addr1.address)).to.equal(1);
@@ -80,5 +80,26 @@ describe('NFT Contract', function() {
                 expect(await hardhatNFT.balanceOf(addr1.address)).to.equal(2);
                 expect(await hardhatNFT.totalSupply()).to.equal(2)
             });
+
+            it('reverts if non-owner mints NFT', async function () {
+                const{ hardhatNFT, owner, addr1, addr2 } = await loadFixture(deployTokenFixture);
+                const tokenUri = "ipfs/1"
+
+                await expect(hardhatNFT.connect(addr1).safeMint(addr1.address, tokenUri)).to.be.revertedWith("Ownable: caller is not the owner")
+            })
+        })
+
+        describe("Token URI", function() {
+
+            it('mints an NFT and checks tokenURI', async function() {
+                const{ hardhatNFT, owner, addr1, addr2 } = await loadFixture(deployTokenFixture);
+                const ipfsPrefix = "ipfs://QmNet77bLNABb3jhoRNxZAgd73eB6qrENS1LXzwWfthbYV/"
+
+                await hardhatNFT.connect(owner).safeMint(owner.address, "0")
+
+                expect(await hardhatNFT.balanceOf(owner.address)).to.equal(1);
+                expect(await hardhatNFT.tokenURI(0)).to.equal("ipfs://QmNet77bLNABb3jhoRNxZAgd73eB6qrENS1LXzwWfthbYV/0")
+                expect(await hardhatNFT.tokenURI(0)).to.equal(ipfsPrefix + "0")
+            })
         })
 })
