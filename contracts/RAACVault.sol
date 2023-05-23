@@ -21,9 +21,15 @@ contract RAACVault is Ownable, IERC721Receiver {
 
     //storage variables
     mapping(uint256 => address) public originalOwner;
+    mapping(address => uint256) public debts;
+
+    uint256 public LtV = 75;
 
     //events
-    event NFTDeposit(address indexed from, address indexed to, uint256 indexed tokenId);
+    event NFTDeposit(address indexed from, address indexed to, uint256 tokenId);
+    event NFTWithdraw(address indexed tokenOwner, uint256 tokenId);
+    event BorrowAgainstNFT(address indexed tokenOwner, uint256 tokenId, uint256 borrowAmount);
+    event RepayDebt(address indexed tokenOwner, uint256 tokenId, uint256 borrowAmount);
 
     constructor(address _raacAddress) payable {
         raacInterface = IERC721(_raacAddress);
@@ -35,8 +41,41 @@ contract RAACVault is Ownable, IERC721Receiver {
     }
 
     function withdrawNFT(uint256 tokenId) external {
-        require(originalOwner[tokenId] == msg.sender);
+        require(originalOwner[tokenId] == msg.sender, "Not the original token owner!");
+        require(debts[msg.sender] == 0, "Can't withdraw with outstanding debt");
+
         raacInterface.safeTransferFrom(address(this), msg.sender, tokenId);
+        originalOwner[tokenId] = address(0);
+
+        emit NFTWithdraw(msg.sender, tokenId);
+    }
+
+    function borrow(uint256 tokenId) external returns(uint256) {
+        //check token owner and debts mapping
+        require(originalOwner[tokenId] == msg.sender, "Non-token owner can't borrow");
+        require(debts[msg.sender] == 0, "Unable to borrow, loan already taken");
+
+        //calculate borrow amount
+        uint256 amount = 20 ether;
+
+        //update debts mapping
+        debts[msg.sender] += amount;
+
+        //transfer borrowed funds to user
+        (bool success, ) = payable(msg.sender).call{value: amount}("");
+
+        if(!success) {
+            revert RAACVault__BorrowFailed();
+        }
+        emit BorrowAgainstNFT(msg.sender, tokenId, amount);
+        return amount;
+    }
+
+    function repay(uint256 tokenId) external payable returns(uint256) {
+    }
+
+    function getContractBalance() public view onlyOwner returns(uint256) {
+        return address(this).balance;
     }
 
     function onERC721Received(
