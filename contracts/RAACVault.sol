@@ -41,7 +41,7 @@ contract RAACVault is Ownable, IERC721Receiver {
     }
 
     function withdrawNFT(uint256 tokenId) external {
-        require(originalOwner[tokenId] == msg.sender, "Not the original token owner!");
+        require(originalOwner[tokenId] == msg.sender, "Non-token owner can't withdraw");
         require(debts[msg.sender] == 0, "Can't withdraw with outstanding debt");
 
         raacInterface.safeTransferFrom(address(this), msg.sender, tokenId);
@@ -72,6 +72,15 @@ contract RAACVault is Ownable, IERC721Receiver {
     }
 
     function repay(uint256 tokenId) external payable returns(uint256) {
+        require(debts[msg.sender] > 0, "Nothing to repay");
+        require(msg.value > 0, "Zero eth sent");
+
+        uint256 amountRepay = debts[msg.sender];
+        require(msg.value == amountRepay, "Must send exact amount of eth");
+
+        debts[msg.sender] = 0;
+        emit RepayDebt(msg.sender, tokenId, amountRepay);
+        return amountRepay;
     }
 
     function getContractBalance() public view onlyOwner returns(uint256) {

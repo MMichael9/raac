@@ -48,17 +48,23 @@ describe('RAAC Vault Contract', () => {
 
         it('checks if acc2 owns NFT', async () => {
             const result = await raacNFT.ownerOf(0)
-            expect(await raacNFT.balanceOf(acc2.address)).to.be.equal(1)
+            expect(1).to.be.equal(await raacNFT.balanceOf(acc2.address))
             expect(result).to.be.equal(acc2.address)
         })
 
         it('allows NFT holder to deposit', async () => {
-            const result = raacVault.connect(acc2).stakeNFT(0)
+            const result = await raacVault.connect(acc2).stakeNFT(0)
 
             expect(raacVault.address).to.be.equal(await raacNFT.ownerOf(0)) // contract now owns token
             expect(acc2.address).to.be.equal(await raacVault.originalOwner(0)) // updates original owner mapping
             await expect(result).to.emit(raacVault, "NFTDeposit")
             .withArgs(acc2.address, raacVault.address, 0);
+        })
+
+        it('should fail if non-token owner tries to deposit', async () => {
+            const result = raacVault.connect(acc3).stakeNFT(0)
+
+            await expect(result).to.be.revertedWith('ERC721: transfer from incorrect owner')
         })
 
     })
@@ -82,8 +88,32 @@ describe('RAAC Vault Contract', () => {
             const withdraw = await raacVault.connect(acc2).withdrawNFT(0)
 
             expect(acc2.address).to.be.equal(await raacNFT.ownerOf(0))
+            expect(ethers.constants.AddressZero).to.be.equal(await raacVault.originalOwner(0)) // update original owner mapping back to address zero
             await expect(withdraw).to.emit(raacVault, "NFTWithdraw")
             .withArgs(acc2.address, 0)
+        })
+
+        it('should fail if non-token holder tries to withdraw', async () => {
+            const result = await raacVault.connect(acc2).stakeNFT(0)
+
+            expect(raacVault.address).to.be.equal(await raacNFT.ownerOf(0))
+            expect(acc2.address).to.be.equal(await raacVault.originalOwner(0))
+            await expect(result).to.emit(raacVault, "NFTDeposit")
+            .withArgs(acc2.address, raacVault.address, 0);
+
+            const withdraw = raacVault.connect(acc1).withdrawNFT(0)
+            await expect(withdraw).to.be.revertedWith("Non-token owner can't withdraw")
+        })
+
+        it('should fail if token holder tries to withdraw with outstanding debt', async () => {
+            const result = await raacVault.connect(acc2).stakeNFT(0)
+            const borrow = await raacVault.connect(acc2).borrow(0)
+
+            expect(raacVault.address).to.be.equal(await raacNFT.ownerOf(0))
+            expect(tokens(20)).to.be.equal(await raacVault.debts(acc2.address))
+
+            const withdraw = raacVault.connect(acc2).withdrawNFT(0)
+            await expect(withdraw).to.be.revertedWith("Can't withdraw with outstanding debt")
         })
     })
 
@@ -104,6 +134,25 @@ describe('RAAC Vault Contract', () => {
             .withArgs(acc2.address, 0, tokens(20))
         })
 
+        it('should fail if non-token holder tries to borrow', async () => {
+            expect(raacVault.address).to.be.equal(await raacNFT.ownerOf(0))
+            expect(acc2.address).to.be.equal(await raacVault.originalOwner(0))
+
+            const result = raacVault.connect(acc3).borrow(0)
+            await expect(result).to.be.revertedWith("Non-token owner can't borrow")
+        })
+
+        it('should fail if token holder tries to borrow twice', async () => {
+            expect(raacVault.address).to.be.equal(await raacNFT.ownerOf(0))
+            expect(acc2.address).to.be.equal(await raacVault.originalOwner(0))
+
+            const borrow = await raacVault.connect(acc2).borrow(0)
+            expect(tokens(20)).to.be.equal(await raacVault.debts(acc2.address))
+
+            const borrowAgain = raacVault.connect(acc2).borrow(0)
+            await expect(borrowAgain).to.be.revertedWith('Unable to borrow, loan already taken')
+        })
+
     })
 
     describe('Repay', () => {
@@ -113,7 +162,43 @@ describe('RAAC Vault Contract', () => {
             const borrow = await raacVault.connect(acc2).borrow(0)
         })
 
-        it('allows NFT staker to repay', async () => {
+        it('allows NFT staker to repay loan', async () => {
+            expect(raacVault.address).to.be.equal(await raacNFT.ownerOf(0))
+            expect(acc2.address).to.be.equal(await raacVault.originalOwner(0))
+            expect(tokens(20)).to.be.equal(await raacVault.debts(acc2.address))
+            expect(tokens(80)).to.be.equal(await raacVault.getContractBalance())
+
+            const result = await raacVault.connect(acc2).repay(0, {value: tokens(20)})
+
+            expect(tokens(0)).to.be.equal(await raacVault.debts(acc2.address))
+            expect(tokens(100)).to.be.equal(await raacVault.getContractBalance())
+            await expect(result).to.emit(raacVault, "RepayDebt")
+            .withArgs(acc2.address, 0, tokens(20))
+        })
+
+        it('should fail if zero ether is sent to repay loan', async () => {
+            expect(tokens(20)).to.be.equal(await raacVault.debts(acc2.address))
+
+            const result = raacVault.connect(acc2).repay(0, {value: tokens(0)})
+
+            await expect(result).to.be.revertedWith('Zero eth sent')
+        })
+
+        //current implementation is to only accept the exact amount of debt - this will change in the future
+        it('should fail if non-exact amount of ether is sent to repay loan', async () => {
+            expect(tokens(20)).to.be.equal(await raacVault.debts(acc2.address))
+
+            const result = raacVault.connect(acc2).repay(0, {value: tokens(19)})
+
+            await expect(result).to.be.revertedWith('Must send exact amount of eth')
+        })
+
+        it('should fail if non-debt holder tries to repay loan', async () => {
+            expect(tokens(20)).to.be.equal(await raacVault.debts(acc2.address))
+
+            const result = raacVault.connect(acc1).repay(0, {value: tokens(20)})
+
+            await expect(result).to.be.revertedWith('Nothing to repay')
         })
 
     })
