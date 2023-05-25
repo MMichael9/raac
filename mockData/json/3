@@ -1,7 +1,7 @@
 {
-    "name": "RAAC #1",
-    "description": "Regna Minima Token 1",
-    "image": "ipfs://QmSrqgZt6fgkFFBYwK7nbnbk9JBQp1dySPUvsqN2vHyvLC/3.png",
+    "name": "RAAC #3",
+    "description": "Regna Minima Token 3",
+    "image": "ipfs://QmSrqgZt6fgkFFBYwK7nbnbk9JBQp1dySPUvsqN2vHyvLC/4.gif",
     "attributes": [
         {
             "trait_type": "country",
@@ -9,39 +9,39 @@
         },
         {
             "trait_type": "address",
-            "value": "54321 Strathcona Ave."
+            "value": "23423 McLean St."
         },
         {
             "trait_type": "size",
-            "value": "3000"
+            "value": "7649"
         },
         {
             "trait_type": "lot size",
-            "value": "3975"
+            "value": "18000"
         },
         {
             "trait_type": "bathrooms",
-            "value": "4"
+            "value": "2"
         },
         {
             "trait_type": "bedrooms",
-            "value": "6"
+            "value": "8"
         },
         {
             "trait_type": "year built",
-            "value": "2019"
+            "value": "1997"
         },
         {
             "trait_type": "property tax",
-            "value": "2300"
+            "value": "10500"
         },
         {
             "trait_type": "owners",
-            "value": ["person1", "person2", "person3", "person4"]
+            "value": ["person1", "person2", "person3"]
         },
         {
             "trait_type": "lease",
-            "value": "10 years"
+            "value": "2 years"
         }
     ]
 }

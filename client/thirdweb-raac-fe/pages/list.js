@@ -1,6 +1,6 @@
 import { useAddress } from "@thirdweb-dev/react";
 
-export default function Collection() {
+export default function List() {
 
   const address = useAddress()
   console.log(address)
@@ -8,7 +8,7 @@ export default function Collection() {
   return (
     <div>
       <main>
-        Collection
+        List
       </main>
     </div>
   );

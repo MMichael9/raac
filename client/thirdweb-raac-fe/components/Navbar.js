@@ -6,12 +6,12 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
-        <Link href="/">Logo</Link>
+        <Link href="/">RAAC</Link>
       </div>
       <div className={styles.links}>
         <Link href="/mint">Mint</Link>
-        <Link href="/collection">View Collection</Link>
         <Link href="/stake">Stake</Link>
+        <Link href="/list">List</Link>
       </div>
       <div className={styles.actions}>
         <ConnectWallet />

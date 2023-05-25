@@ -1,0 +1,14 @@
+.mint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Set the height of the div to make it occupy the full height */
+}
+
+.collection {
+    margin-top: 4rem;
+    margin-left: 2rem;
+    display: flex;
+    flex-wrap: wrap; /* Wrap items to the next line if necessary */
+    gap: 1rem; /* Add some space between the items */
+  }

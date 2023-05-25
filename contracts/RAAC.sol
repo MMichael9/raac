@@ -17,7 +17,7 @@ contract RAAC is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownable, 
     constructor() ERC721("RAAC", "RAAC") {}
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmNet77bLNABb3jhoRNxZAgd73eB6qrENS1LXzwWfthbYV/";
+        return "ipfs://QmPSB1k3CihUNaUav81LiaJJqka62dFDticH6MAX1L2u2Q/";
     }
 
     function pause() public onlyOwner {
