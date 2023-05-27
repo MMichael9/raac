@@ -5,10 +5,15 @@
     height: 100%; /* Set the height of the div to make it occupy the full height */
 }
 
+.nftHeader {
+    margin-top: 3rem;
+    margin-left: 1rem;
+}
+
 .collection {
     margin-top: 4rem;
     margin-left: 2rem;
     display: flex;
     flex-wrap: wrap; /* Wrap items to the next line if necessary */
     gap: 1rem; /* Add some space between the items */
-  }
+}

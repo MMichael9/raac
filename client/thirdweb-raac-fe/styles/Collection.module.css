@@ -1,0 +1,40 @@
+.collection {
+    margin-top: 3rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-wrap: wrap; /* Wrap items to the next line if necessary */
+    gap: 1rem; /* Add some space between the items */
+}
+
+.owner {
+    font-size: 0.8em;
+    color: white;
+    font-weight:bold;
+}
+
+.web3BtnDiv {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.depositBtn {
+    color: limegreen !important;
+}
+
+.withdrawBtn {
+    color: red !important;
+    margin-right: 1rem !important;
+}
+
+.borrowBtn {
+    margin-right: 1rem !important;
+    color: blue !important;
+}
+
+.repayBtn {
+    color: goldenrod !important;
+}

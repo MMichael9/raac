@@ -5,6 +5,11 @@
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
 const hre = require("hardhat");
+const { ethers } = require("hardhat");
+
+const tokens = (n) => {
+  return ethers.utils.parseUnits(n.toString(), 'ether')
+}
 
 async function main() {
 
@@ -13,7 +18,7 @@ async function main() {
   const RaacVault = await hre.ethers.getContractFactory("RAACVault");
 
   const nft = await RaacNFT.deploy();
-  const vault = await RaacVault.deploy(nft.address);
+  const vault = await RaacVault.deploy(nft.address, {value: tokens(100)});
 
   await nft.deployed()
   await vault.deployed()
