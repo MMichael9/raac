@@ -42,7 +42,6 @@ export default function UserCollection() {
         data.map((item, index) => (
             <div key={index}>
             <h2>{item.metadata.name}</h2>
-            <p>{item.metadata.description}</p>
             <img src={item.metadata.image} alt={item.metadata.name} style={{ width: '300px', height: '180px' }} />
             {/* <p className={styles.owner}>Owner: {item.owner}</p> */}
             {/* Display other information as needed */}

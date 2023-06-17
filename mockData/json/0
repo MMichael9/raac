@@ -1,47 +1,48 @@
 {
     "name": "RAAC #0",
-    "description": "Regna Minima Token 0",
-    "image": "ipfs://QmSrqgZt6fgkFFBYwK7nbnbk9JBQp1dySPUvsqN2vHyvLC/3.png",
+    "description": "RAAC NFT's are tokenized properties for DeFi yield farming! Designed by degens, for degens.",
+    "image": "ipfs://QmPt8NZrKz9NpWk8Vb3BBL2be1y6NFvMSRnaNfsyQPNC9q/6.gif",
+    "external_link": "https://www.zillow.com/homedetails/5613-Huss-Ave-Cleveland-OH-44105/33422789_zpid/",
     "attributes": [
         {
-            "trait_type": "country",
-            "value": "Canada"
+            "trait_type": "Property Type",
+            "value": "Single Family"
         },
         {
-            "trait_type": "address",
-            "value": "12345 Hamilton Dr."
+            "trait_type": "Country",
+            "value": "USA"
         },
         {
-            "trait_type": "size",
-            "value": "5000"
+            "trait_type": "Region",
+            "value": "Cleveland"
         },
         {
-            "trait_type": "lot size",
-            "value": "6240"
+            "trait_type": "Street",
+            "value": "5613 Huss Ave"
         },
         {
-            "trait_type": "bathrooms",
-            "value": "1"
+            "trait_type": "Year Built",
+            "value": "1910"
         },
         {
-            "trait_type": "bedrooms",
+            "trait_type": "Lot Size",
+            "value": "5000 sqft"
+        },
+        {
+            "trait_type": "Home Size",
+            "value": "1639 sqft"
+        },
+        {
+            "trait_type": "Bedrooms",
             "value": "3"
         },
         {
-            "trait_type": "year built",
-            "value": "2002"
+            "trait_type": "Bathrooms",
+            "value": "1"
         },
         {
-            "trait_type": "property tax",
-            "value": "5500"
-        },
-        {
-            "trait_type": "owners",
-            "value": ["person1", "person2", "person3"]
-        },
-        {
-            "trait_type": "lease",
-            "value": "5 years"
+            "trait_type": "Rent",
+            "value": "900"
         }
     ]
 }

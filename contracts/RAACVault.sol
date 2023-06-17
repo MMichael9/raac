@@ -22,6 +22,7 @@ contract RAACVault is Ownable, IERC721Receiver {
     //storage variables
     mapping(uint256 => address) public originalOwner;
     mapping(address => uint256) public debts;
+    mapping(uint256 => uint256) public tokenTimeStaked;
 
     uint256 public LtV = 75;
 

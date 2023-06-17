@@ -1,0 +1,378 @@
+[
+    {
+      name: 'TokenExchange',
+      inputs: [ [Object], [Object], [Object], [Object], [Object] ],
+      anonymous: false,
+      type: 'event'
+    },
+    {
+      name: 'AddLiquidity',
+      inputs: [ [Object], [Object], [Object], [Object], [Object] ],
+      anonymous: false,
+      type: 'event'
+    },
+    {
+      name: 'RemoveLiquidity',
+      inputs: [ [Object], [Object], [Object], [Object] ],
+      anonymous: false,
+      type: 'event'
+    },
+    {
+      name: 'RemoveLiquidityOne',
+      inputs: [ [Object], [Object], [Object] ],
+      anonymous: false,
+      type: 'event'
+    },
+    {
+      name: 'RemoveLiquidityImbalance',
+      inputs: [ [Object], [Object], [Object], [Object], [Object] ],
+      anonymous: false,
+      type: 'event'
+    },
+    {
+      name: 'CommitNewAdmin',
+      inputs: [ [Object], [Object] ],
+      anonymous: false,
+      type: 'event'
+    },
+    {
+      name: 'NewAdmin',
+      inputs: [ [Object] ],
+      anonymous: false,
+      type: 'event'
+    },
+    {
+      name: 'CommitNewFee',
+      inputs: [ [Object], [Object], [Object] ],
+      anonymous: false,
+      type: 'event'
+    },
+    {
+      name: 'NewFee',
+      inputs: [ [Object], [Object] ],
+      anonymous: false,
+      type: 'event'
+    },
+    {
+      name: 'RampA',
+      inputs: [ [Object], [Object], [Object], [Object] ],
+      anonymous: false,
+      type: 'event'
+    },
+    {
+      name: 'StopRampA',
+      inputs: [ [Object], [Object] ],
+      anonymous: false,
+      type: 'event'
+    },
+    {
+      outputs: [],
+      inputs: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+      stateMutability: 'nonpayable',
+      type: 'constructor'
+    },
+    {
+      name: 'A',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 5227
+    },
+    {
+      name: 'get_virtual_price',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 1133537
+    },
+    {
+      name: 'calc_token_amount',
+      outputs: [ [Object] ],
+      inputs: [ [Object], [Object] ],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 4508776
+    },
+    {
+      name: 'add_liquidity',
+      outputs: [],
+      inputs: [ [Object], [Object] ],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 6954858
+    },
+    {
+      name: 'get_dy',
+      outputs: [ [Object] ],
+      inputs: [ [Object], [Object], [Object] ],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2673791
+    },
+    {
+      name: 'get_dy_underlying',
+      outputs: [ [Object] ],
+      inputs: [ [Object], [Object], [Object] ],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2673474
+    },
+    {
+      name: 'exchange',
+      outputs: [],
+      inputs: [ [Object], [Object], [Object], [Object] ],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 2818066
+    },
+    {
+      name: 'remove_liquidity',
+      outputs: [],
+      inputs: [ [Object], [Object] ],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 192846
+    },
+    {
+      name: 'remove_liquidity_imbalance',
+      outputs: [],
+      inputs: [ [Object], [Object] ],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 6951851
+    },
+    {
+      name: 'calc_withdraw_one_coin',
+      outputs: [ [Object] ],
+      inputs: [ [Object], [Object] ],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 1102
+    },
+    {
+      name: 'remove_liquidity_one_coin',
+      outputs: [],
+      inputs: [ [Object], [Object], [Object] ],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 4025523
+    },
+    {
+      name: 'ramp_A',
+      outputs: [],
+      inputs: [ [Object], [Object] ],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 151919
+    },
+    {
+      name: 'stop_ramp_A',
+      outputs: [],
+      inputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 148637
+    },
+    {
+      name: 'commit_new_fee',
+      outputs: [],
+      inputs: [ [Object], [Object] ],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 110461
+    },
+    {
+      name: 'apply_new_fee',
+      outputs: [],
+      inputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 97242
+    },
+    {
+      name: 'revert_new_parameters',
+      outputs: [],
+      inputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 21895
+    },
+    {
+      name: 'commit_transfer_ownership',
+      outputs: [],
+      inputs: [ [Object] ],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 74572
+    },
+    {
+      name: 'apply_transfer_ownership',
+      outputs: [],
+      inputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 60710
+    },
+    {
+      name: 'revert_transfer_ownership',
+      outputs: [],
+      inputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 21985
+    },
+    {
+      name: 'admin_balances',
+      outputs: [ [Object] ],
+      inputs: [ [Object] ],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 3481
+    },
+    {
+      name: 'withdraw_admin_fees',
+      outputs: [],
+      inputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 21502
+    },
+    {
+      name: 'donate_admin_fees',
+      outputs: [],
+      inputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 111389
+    },
+    {
+      name: 'kill_me',
+      outputs: [],
+      inputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 37998
+    },
+    {
+      name: 'unkill_me',
+      outputs: [],
+      inputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+      gas: 22135
+    },
+    {
+      name: 'coins',
+      outputs: [ [Object] ],
+      inputs: [ [Object] ],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2220
+    },
+    {
+      name: 'balances',
+      outputs: [ [Object] ],
+      inputs: [ [Object] ],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2250
+    },
+    {
+      name: 'fee',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2171
+    },
+    {
+      name: 'admin_fee',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2201
+    },
+    {
+      name: 'owner',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2231
+    },
+    {
+      name: 'initial_A',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2261
+    },
+    {
+      name: 'future_A',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2291
+    },
+    {
+      name: 'initial_A_time',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2321
+    },
+    {
+      name: 'future_A_time',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2351
+    },
+    {
+      name: 'admin_actions_deadline',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2381
+    },
+    {
+      name: 'transfer_ownership_deadline',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2411
+    },
+    {
+      name: 'future_fee',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2441
+    },
+    {
+      name: 'future_admin_fee',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2471
+    },
+    {
+      name: 'future_owner',
+      outputs: [ [Object] ],
+      inputs: [],
+      stateMutability: 'view',
+      type: 'function',
+      gas: 2501
+    }
+  ]

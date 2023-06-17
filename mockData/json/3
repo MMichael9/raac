@@ -1,47 +1,48 @@
 {
     "name": "RAAC #3",
-    "description": "Regna Minima Token 3",
-    "image": "ipfs://QmSrqgZt6fgkFFBYwK7nbnbk9JBQp1dySPUvsqN2vHyvLC/4.gif",
+    "description": "RAAC NFT's are tokenized properties for DeFi yield farming! Designed by degens, for degens.",
+    "image": "ipfs://QmPt8NZrKz9NpWk8Vb3BBL2be1y6NFvMSRnaNfsyQPNC9q/5.gif",
+    "external_link": "https://www.zillow.com/homedetails/5613-Huss-Ave-Cleveland-OH-44105/33422789_zpid/",
     "attributes": [
         {
-            "trait_type": "country",
-            "value": "Canada"
+            "trait_type": "Property Type",
+            "value": "Single Family"
         },
         {
-            "trait_type": "address",
-            "value": "23423 McLean St."
+            "trait_type": "Country",
+            "value": "USA"
         },
         {
-            "trait_type": "size",
-            "value": "7649"
+            "trait_type": "Region",
+            "value": "Cleveland"
         },
         {
-            "trait_type": "lot size",
-            "value": "18000"
+            "trait_type": "Street",
+            "value": "5613 Huss Ave"
         },
         {
-            "trait_type": "bathrooms",
-            "value": "2"
+            "trait_type": "Year Built",
+            "value": "1910"
         },
         {
-            "trait_type": "bedrooms",
-            "value": "8"
+            "trait_type": "Lot Size",
+            "value": "5000 sqft"
         },
         {
-            "trait_type": "year built",
-            "value": "1997"
+            "trait_type": "Home Size",
+            "value": "1639 sqft"
         },
         {
-            "trait_type": "property tax",
-            "value": "10500"
+            "trait_type": "Bedrooms",
+            "value": "3"
         },
         {
-            "trait_type": "owners",
-            "value": ["person1", "person2", "person3"]
+            "trait_type": "Bathrooms",
+            "value": "1"
         },
         {
-            "trait_type": "lease",
-            "value": "2 years"
+            "trait_type": "Rent",
+            "value": "900"
         }
     ]
 }

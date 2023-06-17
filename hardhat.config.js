@@ -2,17 +2,20 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 require("@nomiclabs/hardhat-ethers");
-const { API_URL, PRIVATE_KEY } = process.env;
+const { GOERLI_RPC_URL, PRIVATE_KEY, MAINNET_RPC_URL } = process.env;
 
 module.exports = {
   solidity: "0.8.9",
   networks: {
     hardhat: {
-      chainId: 1337,
+      chainId: 1,
+      forking: {
+        url: MAINNET_RPC_URL
+      }
     },
     goerli: {
       chainId: 5,
-      url: API_URL,
+      url: GOERLI_RPC_URL,
       accounts: [`0x${PRIVATE_KEY}`],
     }
   }

@@ -93,18 +93,18 @@ describe('RAAC NFT Contract', function() {
 
             it('mints an NFT and checks tokenURI', async function() {
                 const{ hardhatNFT, owner, addr1, addr2 } = await loadFixture(deployTokenFixture);
-                const ipfsPrefix = "ipfs://QmPSB1k3CihUNaUav81LiaJJqka62dFDticH6MAX1L2u2Q/"
+                const ipfsPrefix = "ipfs://QmRocH6awUKZVGu4upxcwfBsX9VMRvHDJ8khhD9Z4HDXRG/"
 
                 await hardhatNFT.connect(owner).safeMint(owner.address, "0")
 
                 expect(await hardhatNFT.balanceOf(owner.address)).to.equal(1);
-                expect(await hardhatNFT.tokenURI(0)).to.equal("ipfs://QmPSB1k3CihUNaUav81LiaJJqka62dFDticH6MAX1L2u2Q/0")
+                expect(await hardhatNFT.tokenURI(0)).to.equal("ipfs://QmRocH6awUKZVGu4upxcwfBsX9VMRvHDJ8khhD9Z4HDXRG/0")
                 expect(await hardhatNFT.tokenURI(0)).to.equal(ipfsPrefix + "0")
             })
 
             it('mints multuple NFTs and checks tokenURIs', async function() {
                 const{ hardhatNFT, owner, addr1, addr2 } = await loadFixture(deployTokenFixture);
-                const ipfsPrefix = "ipfs://QmPSB1k3CihUNaUav81LiaJJqka62dFDticH6MAX1L2u2Q/"
+                const ipfsPrefix = "ipfs://QmRocH6awUKZVGu4upxcwfBsX9VMRvHDJ8khhD9Z4HDXRG/"
 
                 await hardhatNFT.connect(owner).safeMint(owner.address, "0")
                 await hardhatNFT.connect(owner).safeMint(owner.address, "0")
@@ -113,7 +113,7 @@ describe('RAAC NFT Contract', function() {
                 await hardhatNFT.connect(owner).safeMint(owner.address, "0")
 
                 expect(await hardhatNFT.balanceOf(owner.address)).to.equal(5);
-                expect(await hardhatNFT.tokenURI(0)).to.equal("ipfs://QmPSB1k3CihUNaUav81LiaJJqka62dFDticH6MAX1L2u2Q/0")
+                expect(await hardhatNFT.tokenURI(0)).to.equal("ipfs://QmRocH6awUKZVGu4upxcwfBsX9VMRvHDJ8khhD9Z4HDXRG/0")
                 expect(await hardhatNFT.tokenURI(0)).to.equal(ipfsPrefix + "0")
             })
         })
