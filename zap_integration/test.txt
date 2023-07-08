@@ -1,0 +1,137 @@
+[
+    {
+      key: '2982735851',
+      address: '0x3c5c884d512a4513c9c7440be3c2533175178a09',
+      appId: 'gmx',
+      appName: 'GMX',
+      appImage: 'https://storage.googleapis.com/zapper-fi-assets/apps/gmx.png',
+      network: 'arbitrum',
+      updatedAt: '2023-07-06T03:50:06.600Z',
+      balanceUSD: 58.32701550026298,
+      products: [ [Object] ]
+    },
+    {
+      key: '2181123629',
+      address: '0x3c5c884d512a4513c9c7440be3c2533175178a09',
+      appId: 'radiant-v2',
+      appName: 'Radiant V2',
+      appImage: 'https://storage.googleapis.com/zapper-fi-assets/apps/radiant-v2.png',
+      network: 'binance-smart-chain',
+      updatedAt: '2023-07-06T03:50:05.400Z',
+      balanceUSD: 1727.4049455882962,
+      products: [ [Object] ]
+    },
+    {
+      key: '3628476487',
+      address: '0x3c5c884d512a4513c9c7440be3c2533175178a09',
+      appId: 'frax-lend',
+      appName: 'Frax Lend',
+      appImage: 'https://storage.googleapis.com/zapper-fi-assets/apps/frax-lend.png',
+      network: 'ethereum',
+      updatedAt: '2023-07-06T03:50:05.170Z',
+      balanceUSD: 6916.722925223756,
+      products: [ [Object] ]
+    },
+    {
+      key: '2781294728',
+      address: '0x3c5c884d512a4513c9c7440be3c2533175178a09',
+      appId: 'camelot',
+      appName: 'Camelot',
+      appImage: 'https://storage.googleapis.com/zapper-fi-assets/apps/camelot.png',
+      network: 'arbitrum',
+      updatedAt: '2023-07-06T03:50:07.692Z',
+      balanceUSD: 163.20088456779635,
+      products: [ [Object] ]
+    },
+    {
+      key: '3592698323',
+      address: '0x3c5c884d512a4513c9c7440be3c2533175178a09',
+      appId: 'convex-frax',
+      appName: 'Convex Frax',
+      appImage: 'https://storage.googleapis.com/zapper-fi-assets/apps/convex-frax.png',
+      network: 'ethereum',
+      updatedAt: '2023-07-06T03:50:08.189Z',
+      balanceUSD: 557.3223664083908,
+      products: [ [Object] ]
+    },
+    {
+      key: '1351208474',
+      address: '0x3c5c884d512a4513c9c7440be3c2533175178a09',
+      appId: 'convex',
+      appName: 'Convex',
+      appImage: 'https://storage.googleapis.com/zapper-fi-assets/apps/convex.png',
+      network: 'ethereum',
+      updatedAt: '2023-07-06T03:50:15.263Z',
+      balanceUSD: 139.43090996643596,
+      products: [ [Object] ]
+    },
+    {
+      key: '2052719912',
+      address: '0x3c5c884d512a4513c9c7440be3c2533175178a09',
+      appId: 'radiant-v2',
+      appName: 'Radiant V2',
+      appImage: 'https://storage.googleapis.com/zapper-fi-assets/apps/radiant-v2.png',
+      network: 'arbitrum',
+      updatedAt: '2023-07-06T03:50:06.482Z',
+      balanceUSD: 15450.296190123525,
+      products: [ [Object], [Object] ]
+    },
+    {
+      key: '2970624835',
+      address: '0x3c5c884d512a4513c9c7440be3c2533175178a09',
+      appId: 'dolomite',
+      appName: 'Dolomite',
+      appImage: 'https://storage.googleapis.com/zapper-fi-assets/apps/dolomite.png',
+      network: 'arbitrum',
+      updatedAt: '2023-06-27T04:01:35.709Z',
+      balanceUSD: 5659.870405387959,
+      products: [ [Object] ]
+    },
+    {
+      key: '3307392452',
+      address: '0x3c5c884d512a4513c9c7440be3c2533175178a09',
+      appId: 'jones-dao',
+      appName: 'Jones Dao',
+      appImage: 'https://storage.googleapis.com/zapper-fi-assets/apps/jones-dao.png',
+      network: 'arbitrum',
+      updatedAt: '2023-06-20T17:00:50.104Z',
+      balanceUSD: 0,
+      products: []
+    }
+  ]
+  [
+    {
+      key: '1514226205',
+      type: 'contract-position',
+      appId: 'gmx',
+      groupId: 'farm',
+      network: 'arbitrum',
+      address: '0x908c4d94d34924765f1edc22a1dd098397c59dd4',
+      tokens: [ [Object], [Object] ],
+      dataProps: { liquidity: 381089829.8599184, apy: 0, isActive: true },
+      displayProps: {
+        label: 'GMX',
+        tertiaryLabel: '0.000% APY',
+        images: [Array],
+        statsItems: [Array]
+      },
+      balanceUSD: 57.16835977145809
+    },
+    {
+      key: '3960017866',
+      type: 'contract-position',
+      appId: 'gmx',
+      groupId: 'farm',
+      network: 'arbitrum',
+      address: '0x4e971a87900b931ff39d1aad67697f49835400b6',
+      tokens: [ [Object], [Object] ],
+      dataProps: { liquidity: 508262642.0110328, apy: 0, isActive: true },
+      displayProps: {
+        label: 'GLP',
+        tertiaryLabel: '0.000% APY',
+        images: [Array],
+        statsItems: [Array]
+      },
+      balanceUSD: 1.1586557288048884
+    }
+  ]
