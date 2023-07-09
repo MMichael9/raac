@@ -12,6 +12,7 @@ const WETH_10 = "0xf4BB2e28688e89fCcE3c0580D37d36A7672E8A9F"
 const THREECRV = "0x6c3f90f043a72fa612cbac8115ee7e52bde6e490"
 const CRV = "0xD533a949740bb3306d119CC777fa900bA034cd52"
 const CVX = "0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b"
+const CVXLP = "0x30D9410ED1D5DA1F6C8391af5338C93ab8d4035C"
 
 const DAI_WHALE = ""
 const USDT_WHALE = "0x44418b66538138E046C1d080c70E81Ab5de5E076"
@@ -31,11 +32,11 @@ describe("Test Mainnet", () => {
 
     let contract
     let accounts
-    let dai
-    let usdt
+    let dai, usdc, usdt
     let crv,cvx
     let curve
-    let curveToken
+    let curveLPToken
+    let convexLPToken
     let convex
     let convexReward
     
@@ -48,8 +49,10 @@ describe("Test Mainnet", () => {
         acc1 = accounts[0]
 
         dai = await ethers.getContractAt("IERC20", DAI)
+        usdc = await ethers.getContractAt("IERC20", USDC)
         usdt = await ethers.getContractAt("IERC20", USDT)
-        curveToken = await ethers.getContractAt("IERC20", THREECRV)
+        curveLPToken = await ethers.getContractAt("IERC20", THREECRV)
+        convexLPToken = await ethers.getContractAt("IERC20", CVXLP)
         crv = await ethers.getContractAt("IERC20", CRV)
         cvx = await ethers.getContractAt("IERC20", CVX)
 
@@ -67,7 +70,7 @@ describe("Test Mainnet", () => {
         curveWhale = await ethers.getSigner(THREECRV_WHALE)
         //console.log(usdtWhale)
         const usdtBal = await usdt.balanceOf(usdtWhale.address)
-        const curveBal = await curveToken.balanceOf(curveWhale.address)
+        const curveBal = await curveLPToken.balanceOf(curveWhale.address)
 
         console.log('whale usdt balance', usdtBal)
         console.log('whale 3crv balance', curveBal)
@@ -98,7 +101,90 @@ describe("Test Mainnet", () => {
         expect(usdtInitialWhaleBal).to.be.greaterThan(await usdt.balanceOf(usdtWhale.address))
     })
 
-    it('tries to send USDT to curve pool', async() => {
+    it('tries to send USDT to curve pool and deposits and withdraws', async() => {
+
+        // get USDT/3CRV balance of account
+        const usdtBal = await usdt.balanceOf(acc1.address)
+        const crvlpBal = await curveLPToken.balanceOf(acc1.address)
+
+        console.log(usdtBal)
+        console.log(crvlpBal)
+
+        // check balances are valid
+        expect(tokens_to_transfer).to.be.equal(usdtBal)
+        expect(0).to.be.equal(crvlpBal)
+
+        // ----CURVE-----
+
+        //need to approve curve LP Pool contract to spend our tokens
+        // - curveAddress is the address of the LP POOL
+        // - call approve on USDT ()
+        const approveTxn = await usdt.approve(curveAddress, tokens_to_transfer)
+
+        let amounts // THIS IS PARAMETER ONE IN CURVE LP ADD_LIQUIDITY --> AMOUNTS OF TOKENS TO SEND TO CURVE
+        let min_amount_recieve // PARAMETER TWO --> MIN AMOUNT OF LP TOKEN TO RECIEVE (SETTING TO 1 FOR NOW..)
+
+        const virtual_price = await curve.connect(acc1).get_virtual_price()
+        console.log(virtual_price)
+
+        // amount variable is an indexed array. each index represents a token 0: DAI, 1: USDC, 2: USDT
+        amounts = [0, 0, usdtBal]
+        // min amount to recieve should probably be calculated but i am just going to use 1 for now
+        min_amount_recieve = 1
+        
+        //TXN 1
+        //SEND AMOUNTS ARRAY AND MIN_RECIEVE TO CURVE LP
+        //IN RETURN RECIEVE 3CRV LP TOKENS -- LOCKS AWAY OUR USDT
+        const sendToCurve = await curve.connect(acc1).add_liquidity(amounts, min_amount_recieve,{
+            gasLimit: ethers.utils.hexlify(1000000)
+        })
+        //console.log(await sendToCurve.wait())
+
+        const usdtBalAfter = await usdt.balanceOf(acc1.address)
+        const crvlpBalAfter = await curveLPToken.balanceOf(acc1.address)
+
+        console.log(usdtBalAfter)
+        console.log(crvlpBalAfter)
+
+        //check updated balances are correct and valid 
+        //--> this should result in 0 USDT and a x amount of CRV LP Token
+        expect(0).to.be.equal(usdtBalAfter)
+        expect(crvlpBalAfter).to.be.greaterThan(0)
+
+
+        // TRY TO PERFORM A WITHDRAW
+        await mine(1)
+        await time.increase(3600)
+
+        const withdrawFromCurve = await curve.connect(acc1).remove_liquidity(crvlpBalAfter, [1,1,1], {
+            gasLimit: ethers.utils.hexlify(1000000)
+        })
+
+        // console.log(await dai.balanceOf(acc1.address))
+        // console.log(await usdc.balanceOf(acc1.address))
+        // console.log(await usdt.balanceOf(acc1.address))
+        // console.log(await curveLPToken.balanceOf(acc1.address))
+
+        expect(await dai.balanceOf(acc1.address)).to.be.greaterThan(0)
+        expect(await usdc.balanceOf(acc1.address)).to.be.greaterThan(0)
+        expect(await usdt.balanceOf(acc1.address)).to.be.greaterThan(0)
+        expect(0).to.be.equal(await curveLPToken.balanceOf(acc1.address))
+
+    })
+
+    it('sends USDT to curve pool and withdraws to 1 coin', async() => {
+        
+        // get USDT/3CRV balance of account
+        const usdtBal = await usdt.balanceOf(acc1.address)
+        const crvlpBal = await curveLPToken.balanceOf(acc1.address)
+
+        console.log(usdtBal)
+        console.log(crvlpBal)
+    })
+
+    /*
+
+    it('tries to send USDT to curve and convex pool', async() => {
         // await usdt.connect(usdtWhale).transfer(accounts[0].address, tokens_to_transfer, 
         //     {gasLimit: ethers.utils.hexlify(1000000)})
         
@@ -118,7 +204,7 @@ describe("Test Mainnet", () => {
         // console.log('---------------------')
         
         const usdtBal = await usdt.balanceOf(acc1.address)
-        const crvBal = await curveToken.balanceOf(acc1.address)
+        const crvBal = await curveLPToken.balanceOf(acc1.address)
         console.log('\n\n\n\n\nusdt total before: ', usdtBal)
         console.log('3crv total before: ', crvBal)
 
@@ -135,7 +221,7 @@ describe("Test Mainnet", () => {
         })
 
         const usdtafter = await usdt.balanceOf(acc1.address)
-        const crvafter = await curveToken.balanceOf(acc1.address)
+        const crvafter = await curveLPToken.balanceOf(acc1.address)
         console.log('\n\n\n\n\n------add to curve-------')
         console.log('usdt total after: ', usdtafter)
         console.log('3crv total after: ', crvafter)
@@ -146,14 +232,16 @@ describe("Test Mainnet", () => {
         console.log(await crv.balanceOf(acc1.address))
         console.log(await cvx.balanceOf(acc1.address))
 
-        const approveConvex = await curveToken.approve(convexAddress, crvafter)
+        const approveConvex = await curveLPToken.approve(convexAddress, crvafter)
 
         const convexTxn = await convex.connect(acc1).depositAll(9, true, {
             gasLimit: ethers.utils.hexlify(1000000)
         })
 
-        const crvafterConvex = await curveToken.balanceOf(acc1.address)
-        console.log('3crv total after Convex: ', crvafterConvex)
+        const crvafterConvex = await curveLPToken.balanceOf(acc1.address)
+        console.log('3CRV LP total after Convex: ', crvafterConvex)
+        const cvxLPafterConvex = await convexLPToken.balanceOf(acc1.address)
+        console.log('CVX3CRV LP total after Convex: ', cvxLPafterConvex)
 
         console.log(await crv.balanceOf(acc1.address))
         console.log(await cvx.balanceOf(acc1.address))
@@ -164,18 +252,21 @@ describe("Test Mainnet", () => {
         console.log('total earned: ', await convexReward.earned(acc1.address))
 
         await time.increase(7 * 24 * 3600)
+        console.log('{INCREASE TIME}')
 
         console.log('total earned: ', await convexReward.earned(acc1.address))
 
-        console.log(convexReward)
-
-        const convexClaim = await convexReward.withdrawAll(true,{
+        const convexClaim = await convexReward.connect(acc1).withdrawAll(true,{
             gasLimit: ethers.utils.hexlify(1000000)
         })
         
         console.log('USDT', await usdt.balanceOf(acc1.address))
-        console.log('3CRV: ', await curveToken.balanceOf(acc1.address))
+        console.log('3CRV: ', await curveLPToken.balanceOf(acc1.address))
         console.log('CRV: ', await crv.balanceOf(acc1.address))
         console.log('CVX: ', await cvx.balanceOf(acc1.address))
+
+        const test = await convexLPToken.balanceOf(acc1.address)
+        console.log('CVX3CRV LP total after Convex: ', test)
     })
+    */
 })
