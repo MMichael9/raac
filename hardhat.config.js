@@ -10,8 +10,12 @@ module.exports = {
     hardhat: {
       chainId: 1,
       forking: {
-        url: MAINNET_RPC_URL
+        url: MAINNET_RPC_URL,
+        blockNumber: 14390000
       }
+    },
+    localhost: {
+      url: 'http://127.0.0.1:8545'
     },
     goerli: {
       chainId: 5,
