@@ -38,7 +38,7 @@ contract RAACCurveStrategy {
     address[] public TOKENS = [dai,usdc,usdt];
 
     //events
-    event AddLiquidity(address indexed sender, uint256[3] amounts);
+    event AddLiquidity(address indexed sender, bool success, uint256 loan);
 
     constructor(address _vaultAddress, address _nftAddress) {
         curveInterface = ICurve(curvePool);
@@ -68,11 +68,12 @@ contract RAACCurveStrategy {
 
         loanTaken[msg.sender] = true;
         //loanAmounts[msg.sender] = (amounts[0]) + (amounts[1]) + (amounts[2]);
-        loanAmounts[msg.sender] = ((amounts[0]) + (amounts[1] * 1e12) + (amounts[2] * 1e12));
+        loanAmounts[msg.sender] =  ((amounts[0]) + (amounts[1] * 1e12) + (amounts[2] * 1e12));
 
         // interact with curve pool
         curveInterface.add_liquidity(amounts, uint256(1));
-        emit AddLiquidity(msg.sender, amounts);
+
+        emit AddLiquidity(msg.sender, loanTaken[msg.sender], loanAmounts[msg.sender]);
     }
 
     function getOriginalOwner(uint256 tokenId) public view returns(address) {
