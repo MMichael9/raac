@@ -137,6 +137,28 @@ describe('RAAC Vault Contract', () => {
             expect(0).to.be.equal(await usdt.balanceOf(raacCurve.address))
             expect(await crvlp.balanceOf(raacCurve.address)).to.be.greaterThan(90000000000000000000n)
         })
+
+        it('tries to deposit CRV LP tokens to a Convex Pool', async() => {
+            const lpTokenBalance = await crvlp.balanceOf(raacCurve.address)
+
+            let txn = await raacCurve.connect(acc2).boost(0, {
+                gasLimit: ethers.utils.hexlify(1000000)
+            })
+
+            await expect(txn).to.emit(raacCurve, "BoostInitiated")
+            .withArgs(acc2.address, lpTokenBalance)
+        })
+
+        it('verifies and prints balance of CVX LP token', async() => {
+            const curveLpBalance = await crvlp.balanceOf(raacCurve.address)
+            const convexLPBalance = await raacCurve.getConvexBoostedAmount()
+
+            console.log('curve lp:', curveLpBalance)
+            console.log('convex lp:', convexLPBalance)
+
+            expect(0).to.be.equal(curveLpBalance)
+            expect(convexLPBalance).to.be.greaterThan(90000000000000000000n)
+        })
     })
 
 })

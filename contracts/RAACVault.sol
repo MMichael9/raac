@@ -44,8 +44,9 @@ contract RAACVault is Ownable, IERC721Receiver {
         require(originalOwner[tokenId] == msg.sender, "Non-token owner can't withdraw");
         require(debts[msg.sender] == 0, "Can't withdraw with outstanding debt");
 
-        raacInterface.safeTransferFrom(address(this), msg.sender, tokenId);
         originalOwner[tokenId] = address(0);
+
+        raacInterface.safeTransferFrom(address(this), msg.sender, tokenId);
 
         emit NFTWithdraw(msg.sender, tokenId);
     }

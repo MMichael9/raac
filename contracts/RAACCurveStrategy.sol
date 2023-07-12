@@ -39,6 +39,7 @@ contract RAACCurveStrategy {
 
     //events
     event AddLiquidity(address indexed sender, bool success, uint256 loan);
+    event BoostInitiated(address indexed sender, uint256 amount);
 
     constructor(address _vaultAddress, address _nftAddress) {
         curveInterface = ICurve(curvePool);
@@ -74,6 +75,24 @@ contract RAACCurveStrategy {
         curveInterface.add_liquidity(amounts, uint256(1));
 
         emit AddLiquidity(msg.sender, loanTaken[msg.sender], loanAmounts[msg.sender]);
+    }
+
+    function boost(uint256 tokenId) external {
+        require(nftInterface.ownerOf(tokenId) == address(vaultInterface), "VAULT DOES NOT OWN THIS TOKEN");
+        require(msg.sender == getOriginalOwner(tokenId), "YOU MUST BE ORIGINAL OWNER!");
+        require(loanTaken[msg.sender], "YOU MUST HAVE TAKEN A LOAN");
+
+        // get amount of CRV LP Tokens to send to convex
+        uint256 lpTokenAmount = tokenInterface.balanceOf(address(this));
+        _safeApprove(curveLpToken, convexPool, lpTokenAmount);
+
+        bool success = convexInterface.deposit(convexPoolId, lpTokenAmount, true);
+
+        emit BoostInitiated(msg.sender, lpTokenAmount);
+    }
+
+    function getConvexBoostedAmount() public view returns(uint256) {
+        return convexRewardsInterface.balanceOf(address(this));
     }
 
     function getOriginalOwner(uint256 tokenId) public view returns(address) {
